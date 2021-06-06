@@ -11,12 +11,9 @@ python objDetectionMain.py -vs 0
 ```
 
 
-
 For Using with secondary camera
 
-```
-python
-
+```python
 python objDetectionMain.py -vs 1
 
 ```
