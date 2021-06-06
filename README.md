@@ -5,9 +5,7 @@ Object Detection(Multiple and Fast) using MobileNet-SSD.
 
 For Using with in-built webcam
 
-```
-python
-
+```python
 python objDetectionMain.py -vs 0
 
 ```
