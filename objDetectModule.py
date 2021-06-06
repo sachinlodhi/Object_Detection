@@ -1,5 +1,6 @@
-import cv2 as cv
+# This is the custom module to use with other files
 
+import cv2 as cv
 
 class objDetection():
     def __init__(self ):
@@ -18,8 +19,8 @@ class objDetection():
         self.net.setInputScale(1.0 / 127.5)
         self.net.setInputMean((127.5, 127.5, 127.5))
         self.net.setInputSwapRB(True)
-    def locateObj(self, frame):
-        classIds, confidences, bbox = self.net.detect(frame, confThreshold=0.5)
+    def locateObj(self, frame, conf=0.5):
+        classIds, confidences, bbox = self.net.detect(frame, confThreshold=conf)
         try:
             for classId, confidence, box in zip(classIds.flatten(), confidences.flatten(), bbox):
                 cv.rectangle(frame, box, color=(0, 0, 255), thickness=2)
@@ -27,18 +28,21 @@ class objDetection():
                            cv.FONT_ITALIC, 1, (0, 0, 255), 2)
             return frame
         except:
+            return False
             pass
 
 
 
 def main():
     cap = cv.VideoCapture(0)
-    pTime = 0
+
     objDetector = objDetection()
     while True :
         _, img = cap.read()
         processedFrame = objDetector.locateObj(img)
+
         cv.imshow("output", processedFrame)
+
 
         if cv.waitKey(1) & 0xFF == ord('q'):
             cv.destroyAllWindows()
